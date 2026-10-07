@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>N0tSuryansh Music Player</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Background -->
+  <div class="background">
+    <div id="bg1" class="bg-layer active"></div>
+    <div id="bg2" class="bg-layer"></div>
+    <div class="background-overlay"></div>
+  </div>
+
+  <!-- Main -->
+  <main class="app">
+
+    <!-- Top -->
+    <header class="top-bar">
+
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-music"></i>
+        </div>
+
+        <div>
+          <h1>N0tSuryansh</h1>
+          <p>Music Player</p>
+        </div>
+      </div>
+
+      <div class="clock" id="digital-clock">
+        00:00:00
+      </div>
+
+      <button class="menu-btn" id="menu-btn" aria-label="Open menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </header>
+
+
+    <!-- Player -->
+    <section class="player">
+
+      <div class="cover-wrapper">
+
+        <img
+          id="album-cover"
+          class="album-cover"
+          src="https://raw.githubusercontent.com/suryansh6467/songs/main/1313eb05e394d398870fc6a320eec62e.jpg"
+          alt="Album Cover"
+        >
+
+        <div class="cover-glow"></div>
+
+      </div>
+
+
+      <div class="song-info">
+
+        <h2 id="song-title">
+          Loading...
+        </h2>
+
+        <p id="song-artist">
+          Please wait
+        </p>
+
+      </div>
+
+
+      <!-- Progress -->
+      <div class="progress-area">
+
+        <span id="current-time">
+          0:00
+        </span>
+
+        <input
+          type="range"
+          id="progress"
+          min="0"
+          max="100"
+          value="0"
+        >
+
+        <span id="duration">
+          0:00
+        </span>
+
+      </div>
+
+
+      <!-- Controls -->
+      <div class="controls">
+
+        <button id="shuffle-btn" class="control-btn small" title="Shuffle">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+
+        <button id="previous-btn" class="control-btn" title="Previous">
+          <i class="fa-solid fa-backward-step"></i>
+        </button>
+
+        <button id="play-btn" class="play-btn" title="Play">
+          <i id="play-icon" class="fa-solid fa-play"></i>
+        </button>
+
+        <button id="next-btn" class="control-btn" title="Next">
+          <i class="fa-solid fa-forward-step"></i>
+        </button>
+
+        <button id="repeat-btn" class="control-btn small" title="Repeat">
+          <i class="fa-solid fa-repeat"></i>
+        </button>
+
+      </div>
+
+
+      <!-- Playlist -->
+      <div class="playlist-section">
+
+        <div class="playlist-header">
+          <h3>
+            <i class="fa-solid fa-list"></i>
+            Playlist
+          </h3>
+
+          <span id="song-count">
+            0 Songs
+          </span>
+        </div>
+
+        <div id="playlist" class="playlist"></div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- Menu Modal -->
+  <div id="menu-modal" class="modal">
+
+    <div class="modal-box">
+
+      <div class="modal-header">
+
+        <h2>
+          <i class="fa-solid fa-sliders"></i>
+          Settings
+        </h2>
+
+        <button id="close-menu" class="close-btn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+      </div>
+
+
+      <!-- Shuffle -->
+      <button id="modal-shuffle" class="setting-row">
+
+        <div>
+          <i class="fa-solid fa-shuffle"></i>
+
+          <span>
+            Shuffle
+          </span>
+        </div>
+
+        <span id="shuffle-status">
+          OFF
+        </span>
+
+      </button>
+
+
+      <!-- Repeat -->
+      <button id="modal-repeat" class="setting-row">
+
+        <div>
+          <i class="fa-solid fa-repeat"></i>
+
+          <span>
+            Repeat
+          </span>
+        </div>
+
+        <span id="repeat-status">
+          OFF
+        </span>
+
+      </button>
+
+
+      <!-- Background -->
+      <div class="background-setting">
+
+        <h3>
+          <i class="fa-solid fa-image"></i>
+          Background
+        </h3>
+
+        <div class="background-options">
+
+          <button
+            class="bg-option active"
+            data-bg="0"
+          >
+            <span></span>
+            Anime
+          </button>
+
+          <button
+            class="bg-option"
+            data-bg="1"
+          >
+            <span></span>
+            Sky
+          </button>
+
+          <button
+            class="bg-option"
+            data-bg="2"
+          >
+            <span></span>
+            Sunset
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Audio -->
+  <audio id="audio-element" preload="metadata"></audio>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
