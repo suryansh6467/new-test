@@ -1,0 +1,803 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --glass: rgba(255, 255, 255, 0.10);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.65);
+  --accent: #ffffff;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: var(--text);
+  background: #080808;
+  overflow-x: hidden;
+}
+
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+}
+
+.bg-layer {
+  position: absolute;
+  inset: -30px;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  opacity: 0;
+  transform: scale(1.04);
+
+  transition:
+    opacity 1.2s ease,
+    transform 8s ease;
+
+  filter: blur(0px);
+}
+
+.bg-layer.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#bg1 {
+  background-image: url("https://raw.githubusercontent.com/suryansh6467/songs/main/172404-your_name-mitsuha_miyamizu-taki_tachibana-anime-atmosphere-7680x4320.jpg");
+}
+
+#bg2 {
+  background-image: url("https://raw.githubusercontent.com/suryansh6467/songs/main/anime-girl-meteor-streak-10k-0t.jpg");
+}
+
+.background-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.72)
+    );
+
+  backdrop-filter: blur(2px);
+}
+
+
+/* =========================
+   APP
+========================= */
+
+.app {
+  width: min(100%, 900px);
+  margin: auto;
+  padding: 25px 18px 50px;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid var(--glass-border);
+
+  backdrop-filter: blur(15px);
+
+  font-size: 19px;
+}
+
+.brand h1 {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.brand p {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.clock {
+  margin-left: auto;
+
+  padding: 10px 14px;
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid var(--glass-border);
+
+  backdrop-filter: blur(15px);
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.menu-btn {
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid var(--glass-border);
+  border-radius: 13px;
+
+  background: rgba(255, 255, 255, 0.10);
+  color: white;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(15px);
+
+  transition: 0.25s;
+}
+
+.menu-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+
+/* =========================
+   PLAYER
+========================= */
+
+.player {
+  padding: 28px;
+
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+
+  box-shadow:
+    0 25px 80px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================
+   COVER
+========================= */
+
+.cover-wrapper {
+  position: relative;
+
+  width: min(310px, 80vw);
+  aspect-ratio: 1;
+
+  margin: 0 auto 25px;
+}
+
+.album-cover {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border-radius: 25px;
+
+  display: block;
+
+  z-index: 2;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.5);
+
+  transition: transform 0.5s ease;
+}
+
+.album-cover.playing {
+  transform: scale(1.02);
+}
+
+.cover-glow {
+  position: absolute;
+
+  inset: 15px;
+
+  background: inherit;
+
+  filter: blur(35px);
+
+  opacity: 0.45;
+
+  z-index: 1;
+}
+
+
+/* =========================
+   SONG INFO
+========================= */
+
+.song-info {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.song-info h2 {
+  font-size: clamp(20px, 4vw, 27px);
+  font-weight: 800;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.song-info p {
+  margin-top: 7px;
+
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress-area {
+  display: grid;
+
+  grid-template-columns: 42px 1fr 42px;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+}
+
+.progress-area span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.progress-area span:last-child {
+  text-align: right;
+}
+
+#progress {
+  width: 100%;
+
+  height: 5px;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  border-radius: 10px;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+#progress::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 14px;
+  height: 14px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  cursor: pointer;
+
+  box-shadow: 0 0 12px rgba(255,255,255,0.6);
+}
+
+#progress::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: white;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   CONTROLS
+========================= */
+
+.controls {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+
+  margin-bottom: 35px;
+}
+
+.control-btn,
+.play-btn {
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.control-btn {
+  width: 43px;
+  height: 43px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.10);
+
+  border: 1px solid var(--glass-border);
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.20);
+  transform: scale(1.08);
+}
+
+.control-btn.active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.control-btn.small {
+  font-size: 13px;
+}
+
+.play-btn {
+  width: 62px;
+  height: 62px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  color: black;
+
+  font-size: 18px;
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.play-btn:hover {
+  transform: scale(1.08);
+}
+
+
+/* =========================
+   PLAYLIST
+========================= */
+
+.playlist-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+
+  padding-top: 20px;
+}
+
+.playlist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+}
+
+.playlist-header h3 {
+  font-size: 14px;
+}
+
+.playlist-header h3 i {
+  margin-right: 7px;
+}
+
+.playlist-header span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.playlist {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  max-height: 420px;
+
+  overflow-y: auto;
+
+  padding-right: 4px;
+}
+
+.playlist::-webkit-scrollbar {
+  width: 4px;
+}
+
+.playlist::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.playlist::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+}
+
+.song-item {
+  display: grid;
+
+  grid-template-columns: 38px 1fr auto;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 11px;
+
+  border-radius: 13px;
+
+  cursor: pointer;
+
+  background: rgba(255, 255, 255, 0.045);
+
+  border: 1px solid transparent;
+
+  transition: 0.2s;
+}
+
+.song-item:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.song-item.active {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255,255,255,0.16);
+}
+
+.song-number {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: rgba(255,255,255,0.08);
+
+  font-size: 11px;
+}
+
+.song-details {
+  min-width: 0;
+}
+
+.song-details strong {
+  display: block;
+
+  font-size: 12px;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.song-details span {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 10px;
+
+  color: var(--muted);
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.song-duration {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0,0,0,0.55);
+
+  backdrop-filter: blur(10px);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.25s;
+
+  z-index: 100;
+}
+
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-box {
+  width: min(450px, 100%);
+
+  padding: 22px;
+
+  border-radius: 22px;
+
+  background: rgba(25,25,25,0.88);
+
+  border: 1px solid var(--glass-border);
+
+  backdrop-filter: blur(25px);
+
+  transform: translateY(15px);
+
+  transition: 0.25s;
+}
+
+.modal.show .modal-box {
+  transform: translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 15px;
+}
+
+.modal-header h2 {
+  font-size: 17px;
+}
+
+.close-btn {
+  width: 36px;
+  height: 36px;
+
+  border: none;
+  border-radius: 50%;
+
+  color: white;
+
+  background: rgba(255,255,255,0.08);
+
+  cursor: pointer;
+}
+
+.setting-row {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 15px;
+
+  margin-bottom: 8px;
+
+  border: 1px solid transparent;
+  border-radius: 13px;
+
+  color: white;
+
+  background: rgba(255,255,255,0.06);
+
+  cursor: pointer;
+}
+
+.setting-row:hover {
+  background: rgba(255,255,255,0.10);
+}
+
+.setting-row div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.setting-row i {
+  width: 18px;
+}
+
+.setting-row > span {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.background-setting {
+  margin-top: 20px;
+}
+
+.background-setting h3 {
+  font-size: 13px;
+
+  margin-bottom: 12px;
+}
+
+.background-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.bg-option {
+  padding: 10px 6px;
+
+  border: 1px solid transparent;
+
+  border-radius: 12px;
+
+  color: white;
+
+  background: rgba(255,255,255,0.06);
+
+  cursor: pointer;
+
+  font-size: 10px;
+}
+
+.bg-option span {
+  display: block;
+
+  height: 45px;
+
+  margin-bottom: 7px;
+
+  border-radius: 8px;
+
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-option:nth-child(1) span {
+  background-image: url("https://raw.githubusercontent.com/suryansh6467/songs/main/172404-your_name-mitsuha_miyamizu-taki_tachibana-anime-atmosphere-7680x4320.jpg");
+}
+
+.bg-option:nth-child(2) span {
+  background-image: url("https://raw.githubusercontent.com/suryansh6467/songs/main/anime-girl-meteor-streak-10k-0t.jpg");
+}
+
+.bg-option:nth-child(3) span {
+  background-image: url("https://raw.githubusercontent.com/suryansh6467/songs/main/horizon-clouds-sea-sunset-calm-8k-3q.jpg");
+}
+
+.bg-option.active {
+  border-color: rgba(255,255,255,0.6);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .app {
+    padding: 15px 12px 30px;
+  }
+
+  .top-bar {
+    margin-bottom: 18px;
+  }
+
+  .brand-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .brand h1 {
+    font-size: 15px;
+  }
+
+  .clock {
+    display: none;
+  }
+
+  .player {
+    padding: 20px 15px;
+    border-radius: 22px;
+  }
+
+  .cover-wrapper {
+    width: min(280px, 78vw);
+  }
+
+  .controls {
+    gap: 12px;
+  }
+
+  .control-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .play-btn {
+    width: 57px;
+    height: 57px;
+  }
+
+  .playlist {
+    max-height: 350px;
+  }
+}
